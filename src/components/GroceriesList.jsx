@@ -1,45 +1,19 @@
-import { useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import ListItem from "./ListItem.jsx";
 
-const groceries = [
-  {
-    id: 1,
-    name: "Milk",
-    checked: false,
-  },
-  {
-    id: 2,
-    name: "Eggs",
-    checked: false,
-  },
-  {
-    id: 3,
-    name: "Bread",
-    checked: false,
-  },
-  {
-    id: 4,
-    name: "Cheese",
-    checked: true,
-  },
-];
-
-const GroceriesList = () => {
-  const [groceriesList, setGroceriesList] = useState(groceries);
-  return (
-    <main className="">
-      <ul className="">
-        {groceriesList.map((item) => (
-          <li className="flex justify-between items-center" key={item.id}>
-            <div>
-              <input type="checkbox" checked={item.checked} readOnly />
-              <label className="ml-1">{item.name}</label>
-            </div>
-            <FaTrashAlt role="button" tabIndex="0" />
-          </li>
-        ))}
-      </ul>
-    </main>
+const GroceriesList = (props) => {
+  return props.groceriesList.length === 0 ? (
+    <p className="text-center ">Your List is Empty</p>
+  ) : (
+    <ul className="flex flex-col gap-y-2">
+      {props.groceriesList.map((item) => (
+        <ListItem
+          key={item.id}
+          handleCheck={props.handleCheck}
+          handleDelete={props.handleDelete}
+          item={item}
+        />
+      ))}
+    </ul>
   );
 };
 
